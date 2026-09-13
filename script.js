@@ -502,7 +502,145 @@ function setupContactForm() {
 }
 
 /* ---------------------------------------------------------
-   11. RUN EVERYTHING ONCE THE PAGE HAS LOADED
+   11. AI ASSISTANT — simple rule-based chat widget
+   This is NOT connected to any real AI or external API. It
+   matches keywords typed by the user against a small list of
+   topics and replies with a pre-written answer. This keeps
+   the whole site to plain HTML5/CSS3/vanilla JavaScript, as
+   required for the JGA 2026 assignment.
+   --------------------------------------------------------- */
+const CHAT_TOPICS = [
+  {
+    keywords: ["hi", "hello", "hallo", "howzit", "hey"],
+    reply: "Hi there! I'm the KasiLink SA assistant. Ask me about finding a plumber, our services, pricing, bookings, or joining as a plumber."
+  },
+  {
+    keywords: ["service", "services", "offer", "what do you do", "plumbing"],
+    reply: "We list six service categories: Residential Plumbing, Leak Repairs, Bathroom Plumbing, Water-Pipe Services, Geyser Plumbing and Emergency Plumbing. See the Products / Services page for details."
+  },
+  {
+    keywords: ["emergency", "urgent", "burst", "leak now", "flooding"],
+    reply: "For emergencies, use the Emergency Plumbing filter when searching, or look for plumbers marked \"Emergency callout available\" on the Services page."
+  },
+  {
+    keywords: ["price", "cost", "how much", "fee", "rate"],
+    reply: "Prices depend on the plumber and job. Our demo plumbers range from about R500 to R960 per callout. You can compare prices on the Products / Services page."
+  },
+  {
+    keywords: ["book", "booking", "request", "hire", "appointment"],
+    reply: "You can request a service on the Products / Services page: pick a plumber, fill in your details and submit the booking form."
+  },
+  {
+    keywords: ["review", "rating", "star", "feedback"],
+    reply: "After a job is done, customers can rate their plumber from 1 to 5 stars on the Products / Services page. All ratings shown on this prototype are demo data."
+  },
+  {
+    keywords: ["join", "plumber", "sign up", "register", "sign-up", "list my business"],
+    reply: "Plumbers can join KasiLink SA to get more visibility and bookings. Use the \"Join as a Plumber\" button or the Contact page to get in touch."
+  },
+  {
+    keywords: ["contact", "phone", "email", "reach", "call"],
+    reply: "You can reach us on the Contact page — there's a message form and our contact details there."
+  },
+  {
+    keywords: ["persona", "customer persona", "who is this for"],
+    reply: "The Customer Persona page shows example customer and plumber profiles that guide how we designed KasiLink SA."
+  },
+  {
+    keywords: ["about", "who are you", "what is kasilink"],
+    reply: "KasiLink SA is a South African digital marketplace connecting skilled local plumbers with customers who need plumbing services. See the About page for more."
+  },
+  {
+    keywords: ["revenue", "business model", "money", "profit"],
+    reply: "KasiLink SA earns revenue through a small booking fee, optional featured listings, and a verified profile badge. See the Revenue Model page for the full breakdown and a calculator."
+  },
+  {
+    keywords: ["thanks", "thank you", "cheers"],
+    reply: "You're welcome! Let me know if there's anything else about KasiLink SA I can help with."
+  }
+];
+
+const CHAT_FALLBACK_REPLY =
+  "I'm a simple demo assistant and I'm not sure about that one. Try asking about services, pricing, bookings, emergencies, or joining as a plumber — or visit the Contact page for a real answer.";
+
+const CHAT_QUICK_REPLIES = ["Our services", "Emergency plumbing", "How booking works", "Join as a plumber"];
+
+function findChatReply(userText) {
+  const text = userText.toLowerCase();
+  for (let i = 0; i < CHAT_TOPICS.length; i++) {
+    const topic = CHAT_TOPICS[i];
+    for (let j = 0; j < topic.keywords.length; j++) {
+      if (text.includes(topic.keywords[j])) {
+        return topic.reply;
+      }
+    }
+  }
+  return CHAT_FALLBACK_REPLY;
+}
+
+function appendChatMessage(log, text, sender) {
+  const bubble = document.createElement("div");
+  bubble.className = "chat-msg " + sender;
+  bubble.textContent = text;
+  log.appendChild(bubble);
+  log.scrollTop = log.scrollHeight;
+}
+
+function setupChatWidget() {
+  const toggleButton = document.getElementById("chat-toggle");
+  const panel = document.getElementById("chat-panel");
+  const closeButton = document.getElementById("chat-close");
+  const log = document.getElementById("chat-log");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("chat-input");
+  const quickRepliesBar = document.getElementById("chat-quick-replies");
+
+  if (!toggleButton || !panel || !form || !input || !log) return;
+
+  // Build the quick-reply buttons once.
+  CHAT_QUICK_REPLIES.forEach(function (label) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = label;
+    btn.addEventListener("click", function () {
+      handleChatSubmit(label);
+    });
+    quickRepliesBar.appendChild(btn);
+  });
+
+  toggleButton.addEventListener("click", function () {
+    panel.classList.toggle("open");
+    if (panel.classList.contains("open")) {
+      input.focus();
+    }
+  });
+
+  if (closeButton) {
+    closeButton.addEventListener("click", function () {
+      panel.classList.remove("open");
+    });
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    handleChatSubmit(text);
+    input.value = "";
+  });
+
+  function handleChatSubmit(text) {
+    appendChatMessage(log, text, "user");
+    const reply = findChatReply(text);
+    // Small delay so the reply feels like a response, not an instant echo.
+    setTimeout(function () {
+      appendChatMessage(log, reply, "bot");
+    }, 300);
+  }
+}
+
+/* ---------------------------------------------------------
+   12. RUN EVERYTHING ONCE THE PAGE HAS LOADED
    Each setup function checks for its own elements first, so
    it is safe to call all of them on every page.
    --------------------------------------------------------- */
@@ -514,4 +652,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setupRatingWidget();
   setupRevenueCalculator();
   setupContactForm();
+  setupChatWidget();
 });

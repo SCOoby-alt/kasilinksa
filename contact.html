@@ -149,6 +149,28 @@
   </div>
 </footer>
 
+<!-- ============ AI ASSISTANT (rule-based chat widget) ============ -->
+<button id="chat-toggle" class="chat-toggle" aria-expanded="false" aria-controls="chat-panel" aria-label="Open KasiLink SA assistant">💬</button>
+
+<div id="chat-panel" class="chat-panel" role="dialog" aria-label="KasiLink SA assistant">
+  <div class="chat-head">
+    <div class="chat-head-title">
+      <img src="images/kasilink-logo.png" alt="">
+      <span>KasiLink SA Assistant</span>
+    </div>
+    <button id="chat-close" class="chat-close" aria-label="Close assistant">✕</button>
+  </div>
+  <div id="chat-log" class="chat-log">
+    <div class="chat-msg bot">Hi! I'm the KasiLink SA assistant. Ask me about services, pricing, bookings, emergencies, or joining as a plumber.</div>
+  </div>
+  <div id="chat-quick-replies" class="chat-quick-replies"></div>
+  <form id="chat-form" class="chat-form">
+    <input type="text" id="chat-input" placeholder="Type a question..." aria-label="Type a question for the assistant">
+    <button type="submit">Send</button>
+  </form>
+  <p class="chat-disclaimer">Demo assistant — rule-based, not connected to a live AI service.</p>
+</div>
+
 <script src="js/script.js"></script>
 </body>
 </html>
