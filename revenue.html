@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Model — KasiLink SA</title>
+<meta name="description" content="How KasiLink SA plans to generate revenue, with an interactive calculator showing revenue, cost and profit per booking volume.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <img src="images/kasilink-logo.png" alt="KasiLink SA plumber logo">
+      <span class="brand-name">KasiLink SA</span>
+    </a>
+
+    <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="main-nav">☰ Menu</button>
+
+    <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="persona.html">Customer Persona</a></li>
+        <li><a href="services.html">Products / Services</a></li>
+        <li><a href="revenue.html" aria-current="page">Revenue Model</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a href="services.html#search" class="btn btn-primary">Find a Plumber</a>
+      <a href="contact.html#join" class="btn btn-secondary">Join as a Plumber</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="container">
+    <span class="hero-label">REVENUE MODEL</span>
+    <h1>How KasiLink SA plans to earn revenue</h1>
+    <p>A digital marketplace needs a sustainable way to cover its costs while staying affordable for local plumbers and customers.</p>
+  </div>
+</section>
+
+<!-- ============ REVENUE STREAMS ============ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Revenue streams</h2>
+    <p class="section-sub">KasiLink SA combines a small booking fee with optional paid features for plumbers.</p>
+
+    <div class="revenue-grid">
+      <div class="revenue-card">
+        <h3>Booking Fee</h3>
+        <p>A small service fee is added per confirmed booking made through the platform, similar to how the KasiLink SA booking API calculates cost per booking.</p>
+      </div>
+      <div class="revenue-card">
+        <h3>Featured Listings</h3>
+        <p>Plumbers can pay to have their profile appear higher in search results and on the home page, increasing their visibility to customers.</p>
+      </div>
+      <div class="revenue-card">
+        <h3>Verified Profile Badge</h3>
+        <p>An optional paid verification badge for plumbers who submit proof of qualifications, building extra trust with customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COST STRUCTURE ============ -->
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">Cost structure</h2>
+    <p class="section-sub">Every booking carries a fixed platform cost and a small variable cost.</p>
+
+    <div class="revenue-grid">
+      <div class="revenue-card">
+        <h3>Fixed Costs</h3>
+        <p>Hosting, platform maintenance, and support — a constant monthly cost regardless of booking volume, modelled at R 3 500.</p>
+      </div>
+      <div class="revenue-card">
+        <h3>Variable Costs</h3>
+        <p>Payment processing, notifications and support per booking, modelled at R 8 per booking made on the platform.</p>
+      </div>
+      <div class="revenue-card">
+        <h3>Break-Even Thinking</h3>
+        <p>The calculator below shows how profit grows once enough bookings cover the fixed monthly cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALCULATOR ============ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Revenue calculator</h2>
+    <p class="section-sub">Pick a service and number of bookings to see the projected revenue, cost and profit. This uses the same figures as the KasiLink SA booking API (fixed cost R 3 500, variable cost R 8 per booking).</p>
+
+    <form id="revenue-calculator" class="calculator">
+      <div class="calc-form">
+        <div class="field">
+          <label for="calc-service">Service (sets price per booking)</label>
+          <select id="calc-service">
+            <option value="800">Residential Plumbing — R 800</option>
+            <option value="960">Leak Repairs — R 960</option>
+            <option value="770">Bathroom Plumbing — R 770</option>
+            <option value="900">Water-Pipe Services — R 900</option>
+            <option value="500">Geyser Plumbing — R 500</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="calc-bookings">Number of bookings this month</label>
+          <input type="number" id="calc-bookings" min="0" value="10">
+        </div>
+      </div>
+      <div class="calc-results">
+        <h3>Projected outcome</h3>
+        <div class="calc-row">
+          <span>Revenue</span>
+          <span id="calc-revenue" class="value">R 0</span>
+        </div>
+        <div class="calc-row">
+          <span>Total cost</span>
+          <span id="calc-cost" class="value">R 0</span>
+        </div>
+        <div class="calc-row total">
+          <span>Profit</span>
+          <span id="calc-profit" class="value">R 0</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/kasilink-logo.png" alt="KasiLink SA plumber logo">
+          <span>KasiLink SA</span>
+        </div>
+        <p class="footer-tagline">Connecting Skills. Building Futures.</p>
+        <p class="footer-tagline">Don't wait for customers. Let them find you.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="persona.html">Customer Persona</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Business</h4>
+        <ul>
+          <li><a href="services.html">Products / Services</a></li>
+          <li><a href="revenue.html">Revenue Model</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>KasiLink SA</h4>
+        <ul>
+          <li>Tshwane University of Technology</li>
+          <li>Faculty of ICT — JGA 2026</li>
+          <li>Digital Entrepreneurship</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 KasiLink SA. Student prototype for academic purposes.</span>
+      <span>Built with HTML5, CSS3 and vanilla JavaScript.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
